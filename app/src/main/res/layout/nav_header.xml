@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/toolbar_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_14sdp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="@dimen/_14sdp"
+            >
+            <TextView
+                android:id="@+id/user_name"
+                android:text="@string/ahmed_khalifa"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp"
+                android:textAppearance="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/user_mob1"
+                android:text="@string/verified"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
+                android:textAppearance="@style/textStyle"
+                android:textStyle="normal"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/user_image"
+            android:src="@drawable/avatar"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/_3sdp"
+            app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeWidth="@dimen/_2sdp"
+            app:strokeColor="@android:color/darker_gray"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
