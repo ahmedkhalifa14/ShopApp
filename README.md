@@ -1,5 +1,5 @@
 # ShopApp
-# Tools
+# Tools And Techniques
 [Kotlin](https://kotlinlang.org/) As programming language
 
 [Model-View-ViewModel(MVVM)](https://developer.android.com/topic/architecture) Architecture Pattern,MVVM means a way to structure code. With MVVM, it is possible to keep the UI components of an application away from the business logic.
