@@ -16,6 +16,8 @@
 
 [Fused Location Provider](https://developer.android.com/training/location/retrieve-current.html) The fused location provider is a location API in Google Play services that intelligently combines different signals to provide the location information that your app needs.
 
+[Geocoder](https://developer.android.com/reference/android/location/Geocoder) A class for handling geocoding and reverse geocoding.
+
 [Easy Permissions](https://github.com/vmadalin/easypermissions-ktx) EasyPermissions is a wrapper library to simplify basic system permissions logic when targeting Android M or higher.
 
 [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow)  StateFlow is a state-holder observable flow that emits the current and new state updates to its collectors. The current state value can also be read through its value property. To update state and send it to the flow, assign a new value to the value property of the MutableStateFlow class.
