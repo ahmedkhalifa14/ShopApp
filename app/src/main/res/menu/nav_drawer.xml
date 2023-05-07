@@ -18,6 +18,11 @@
                 android:icon="@drawable/ic_rewards"
 
                 />
+            <item android:title="@string/my_cart"
+                android:id="@+id/cart"
+                android:icon="@drawable/ic_add_cart"
+
+                />
             <item android:title="@string/my_orders"
                 android:id="@+id/orders"
                 android:icon="@drawable/ic_newlaunch"
@@ -45,7 +50,7 @@
 
                 />
             <item android:title="@string/terms_and_conditions"
-
+                android:id="@+id/termsAndConditions"
                 android:icon="@drawable/ic_contion"
 
                 />

@@ -46,6 +46,14 @@ class ApiRepoImpl @Inject constructor(
             }
         }
 
+    override suspend fun searchForProducts(text: String): Resource<AuthResponse<Data<Product>>> =
+        withContext(Dispatchers.IO) {
+            tryCatch {
+                val result = apiService.searchForProducts(text)
+                Resource.Success(result)
+            }
+        }
+
     override suspend fun getBanners(): Resource<Banner> =
         withContext(Dispatchers.IO) {
             tryCatch {
@@ -81,11 +89,12 @@ class ApiRepoImpl @Inject constructor(
         }
 
     override suspend fun updateCartItemQuantity(
-        quantity: Int,
-        id: Int
+        id: Int,
+        quantity: Int
+
     ): Resource<AuthResponse<CartItemData>> =
         withContext(Dispatchers.IO) {
-            val result = apiService.updateCartItemQuantity(quantity, id)
+            val result = apiService.updateCartItemQuantity(id, quantity)
             Resource.Success(result)
         }
 

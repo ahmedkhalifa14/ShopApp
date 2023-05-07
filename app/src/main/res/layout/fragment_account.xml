@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AccountFragment">
+    tools:context=".ui.home.AccountFragment">
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Wave"
+        style="@style/SpinKitView.Large.MultiplePulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_20sdp"
         android:layout_gravity="center"
+        android:padding="@dimen/_20sdp"
+        android:visibility="gone"
         app:SpinKit_Color="@color/mainColor"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/profile_background_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
         />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_120sdp"
-        android:layout_marginTop="@dimen/_150sdp"
-        android:src="@drawable/profile"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/_150sdp"
         android:elevation="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -50,13 +51,12 @@
         android:layout_below="@+id/profile_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_18sdp"
-        android:text="@string/user_name"
-        android:textColor="#000000"
+        android:fontFamily="@font/raleway_bold"
+        android:textColor="@color/mainColor"
         android:textSize="@dimen/_18ssp"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
     <TextView
         android:id="@+id/user_email"
@@ -65,11 +65,11 @@
         android:layout_below="@+id/user_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_5sdp"
-        android:text="@string/user_email_com"
-        android:textColor="#000000"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textColor="@color/mainColor2"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_name"
 
         />
@@ -81,17 +81,16 @@
         android:layout_below="@+id/user_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_14sdp"
-        android:text="@string/_500_points"
-        android:textColor="#000000"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textColor="@color/mainColor2"
         android:textSize="@dimen/_14sdp"
-        app:layout_constraintTop_toBottomOf="@+id/user_email"
-
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_email" />
 
     <Button
         android:id="@+id/edit_profile_button"
+        style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_points"
@@ -100,11 +99,11 @@
         android:text="@string/edit_profile"
         android:textColor="#ffffff"
         android:textSize="@dimen/_12ssp"
-        style="@style/button_style"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_points"
-
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

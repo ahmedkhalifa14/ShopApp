@@ -26,15 +26,15 @@ interface ApiService {
     suspend fun getAllCartItems(): AuthResponse<CartItemData>
 
     @POST("carts")
-    suspend fun addItemToCart(@Query ("product_id") product_id : Int): AuthResponse<FavouriteItem>
+    suspend fun addItemToCart(@Query("product_id") product_id: Int): AuthResponse<FavouriteItem>
 
-    @DELETE("cart/{product_id}")
-    suspend fun deleteItemFromCarts(@Path("product_id") id: Int): AuthResponse<CartItemData>
+    @DELETE("carts/{id}")
+    suspend fun deleteItemFromCarts(@Path("id") id: Int): AuthResponse<CartItemData>
 
-    @PUT("cart/{product_id}")
+    @PUT("carts/{id}")
     suspend fun updateCartItemQuantity(
-        @Body quantity: Int,
-        @Path("product_id") id: Int
+        @Path("id") id: Int,
+        @Query("quantity") quantity: Int
     ): AuthResponse<CartItemData>
 
     //favorites
@@ -42,7 +42,7 @@ interface ApiService {
     suspend fun getFavouriteItems(): AuthResponse<Data<FavouriteItem>>
 
     @POST("favorites")
-    suspend fun addItemToFavourites(@Body product_id: Int): AuthResponse<FavouriteItem>
+    suspend fun addItemToFavourites(@Query("product_id") product_id: Int): AuthResponse<FavouriteItem>
 
     @DELETE("favorites/{product_id}")
     suspend fun deleteItemFromFavourites(@Path("product_id") id: Int): AuthResponse<FavouriteItem>
@@ -54,12 +54,15 @@ interface ApiService {
 
     @GET("categories/{category_id}")
     suspend fun getProductsByCategoryID(@Path("category_id") id: Int): MyResponse<Data<Product>>
+
     @GET("products")
-    suspend fun getAllProducts():AuthResponse<Data<Product>>
+    suspend fun getAllProducts(): AuthResponse<Data<Product>>
 
     @GET("banners")
     suspend fun getBanners(): Banner
 
+    @POST("products/search")
+    suspend fun searchForProducts(@Query("text") text: String): AuthResponse<Data<Product>>
 
     //Settings
     @GET("settings")

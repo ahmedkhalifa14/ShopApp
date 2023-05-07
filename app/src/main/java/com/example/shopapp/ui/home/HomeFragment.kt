@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,11 +27,14 @@ import com.example.shopapp.adapters.BannerViewPagerAdapter
 import com.example.shopapp.adapters.CategoryAdapter
 import com.example.shopapp.adapters.ProductAdapter
 import com.example.shopapp.databinding.FragmentHomeBinding
+import com.example.shopapp.helper.convertLatLongToLocation
 import com.example.shopapp.models.Category
 import com.example.shopapp.ui.auth.AuthViewModel
 import com.example.shopapp.utils.Constants.categories
+import com.example.shopapp.utils.Constants.categoryId
 import com.example.shopapp.utils.Constants.spinnerImages
 import com.example.shopapp.utils.EventObserver
+import com.github.ybq.android.spinkit.SpinKitView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -76,19 +80,18 @@ class HomeFragment : Fragment() {
         categoryData()
         productData()
         geocoder = Geocoder(requireContext(), Locale.getDefault())
-
         authViewModel.getUserInfo.observe(requireActivity()) { userInfo ->
-            val location = geocoder.getFromLocation(
+            val location = convertLatLongToLocation(
                 userInfo.latitude.toDouble(),
                 userInfo.longitude.toDouble(),
-                1
+                geocoder
             )
-
-            val userLocation = location!!.first().countryCode + location.first().subLocality
-            binding!!.locationTv.text = userLocation
-
+            binding!!.locationTv.text = location
         }
         subscribeToObservers()
+        productAdapter.setOnAddToFavItemClickListener {
+            mainViewModel.addItemToFavourites(it.id!!)
+        }
         bannerAdapter = BannerViewPagerAdapter()
         binding?.apply {
             toggle = ActionBarDrawerToggle(
@@ -99,7 +102,7 @@ class HomeFragment : Fragment() {
             )
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
-            val navView = view.findViewById<NavigationView>(R.id.navDrawer)
+           val navView = view.findViewById<NavigationView>(R.id.navDrawer)
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.notification -> {
@@ -107,16 +110,41 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
                     }
 
+                    R.id.cart -> {
+                        binding!!.drawerLayout.close()
+                        findNavController().navigate(R.id.action_homeFragment_to_cartFragment)
+                    }
+
+                    R.id.profile -> {
+                        binding!!.drawerLayout.close()
+                        findNavController().navigate(R.id.action_homeFragment_to_accountFragment)
+                    }
+
+                    R.id.termsAndConditions -> {
+                        binding!!.drawerLayout.close()
+                        findNavController().navigate(R.id.action_homeFragment_to_termsAndConditionsFragment)
+                    }
+
                 }
                 true
             }
+
         }
+        binding!!.addingCart.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_cartFragment)
+        }
+        binding!!.profileImage.setOnClickListener {
+            binding!!.drawerLayout.open()
+        }
+        binding!!.inputEditTextSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
+
         view.findViewById<ViewPager2>(R.id.viewPagerBannersSlider).adapter = bannerAdapter
         spinner = view.findViewById<Spinner>(R.id.filter_spinner)
         categoryAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("category", it)
-
             }
             findNavController().navigate(
                 R.id.action_homeFragment_to_categoryProductsFragment,
@@ -156,6 +184,7 @@ class HomeFragment : Fragment() {
 
                         },
                         onSuccess = {
+
                             for (img in it.data!!) {
                                 img.image?.let { it1 -> imageList.add(it1) }
                             }
@@ -170,23 +199,49 @@ class HomeFragment : Fragment() {
             launch {
                 mainViewModel.allProductsStatus.collect(
                     EventObserver(
-                        onLoading = {},
+                        onLoading = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                true
+
+                        },
                         onSuccess = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                false
                             productAdapter.differ.submitList(it.data?.data)
                             Log.d("productAdapter", it.data!!.data.toString())
 
                         },
-                        onError = {}
+                        onError = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                false
+                        }
                     )
                 )
             }
             launch {
                 mainViewModel.allCategoryProductsStatus.collect(
                     EventObserver(
-                        onLoading = {},
+                        onLoading = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                true
+                        },
                         onSuccess = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                false
                             productAdapter.differ.submitList(it.data?.data)
                         },
+                        onError = {
+                            binding!!.root.findViewById<SpinKitView>(R.id.all_product_spin_kit).isVisible =
+                                false
+                        }
+                    )
+                )
+            }
+            launch {
+                mainViewModel.addItemToFavouritesStatus.collect(
+                    EventObserver(
+                        onLoading = {},
+                        onSuccess = {},
                         onError = {}
                     )
                 )
@@ -211,8 +266,7 @@ class HomeFragment : Fragment() {
         productAdapter = ProductAdapter(1)
         productRv.layoutManager =
                 // LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
-
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         productRv.adapter = productAdapter
     }
 
@@ -234,8 +288,7 @@ class HomeFragment : Fragment() {
                     if (categories[position] == "All Product")
                         mainViewModel.getAllProducts()
                     else
-                        mainViewModel.getProductsByCategoryID(42)
-                    //Toast.makeText(requireContext(), "dasd", Toast.LENGTH_SHORT).show()
+                        mainViewModel.getProductsByCategoryID(categoryId[position], true)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {

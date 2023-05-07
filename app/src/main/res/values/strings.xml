@@ -16,6 +16,7 @@
     <string name="recipes">Recipes</string>
     <string name="share">Share</string>
     <string name="my_rewards">My Rewards</string>
+    <string name="my_cart">My Cart</string>
     <string name="my_notification">My Notification</string>
     <string name="my_orders">My Orders</string>
     <string name="privacy_policy">privacy policy</string>
@@ -45,6 +46,7 @@
     <string name="category">Category</string>
     <string name="account">Account</string>
     <string name="profile">profile</string>
+
     <string name="ahmed_khalifa">Ahmed Khalifa</string>
     <string name="verified">verified</string>
     <string name="search">Search</string>
@@ -58,7 +60,7 @@
     <string name="item_description">description</string>
     <string name="quantity">quantity</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="_500_points">points</string>
+    <string name="_500_points">point</string>
     <string name="user_email_com">user@email.com</string>
     <string name="user_name">User Name</string>
     <string name="time">00:00</string>
@@ -70,5 +72,11 @@
     <string name="product_price">product price</string>
     <string name="total_price">total price</string>
     <string name="deliver_to">Deliver to</string>
+    <string name="no_cart_item_available">No cart items available</string>
+    <string name="no_fav_item_available">No Favourite items available</string>
+    <string name="proceed_to_buy">Proceed to Buy</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="my_favourites">My Favourites</string>
+
 
 </resources>

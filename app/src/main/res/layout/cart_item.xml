@@ -166,7 +166,7 @@
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:text="@string/Zero"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:textStyle="bold|normal"
                     android:textColor="@color/red"
                     android:fontFamily="@font/raleway_bold"

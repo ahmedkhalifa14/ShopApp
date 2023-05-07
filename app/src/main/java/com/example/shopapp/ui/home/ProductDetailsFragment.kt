@@ -1,4 +1,4 @@
-package com.example.shopapp
+package com.example.shopapp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

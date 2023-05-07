@@ -3,21 +3,19 @@ package com.example.shopapp.ui.onboarding
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.shopapp.R
-import com.example.shopapp.data.local.DataStoreManager
 import com.example.shopapp.databinding.FragmentSplashBinding
 import com.example.shopapp.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -27,6 +25,10 @@ class SplashFragment : Fragment() {
     private var isLogin: Boolean? = false
     private val authViewModel: AuthViewModel by viewModels()
 
+    private val navOptions =
+        NavOptions.Builder()
+            .setPopUpTo(R.id.splashFragment, true)
+            .build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +55,7 @@ class SplashFragment : Fragment() {
                         true
 
                     }
+
                     false -> {
                         false
                     }
@@ -70,21 +73,21 @@ class SplashFragment : Fragment() {
                 {
                     if (isFirstTimeLaunchVar == true && isLogin == true) {
                         lifecycleScope.launchWhenResumed {
-                            findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                            findNavController().navigate(R.id.action_splashFragment_to_homeFragment,null,navOptions)
                         }
 
 
                     } else if (isFirstTimeLaunchVar == true && isLogin == false) {
                         lifecycleScope.launchWhenResumed {
-                            findNavController().navigate(R.id.action_splashFragment_to_registerFragment)
+                            findNavController().navigate(R.id.action_splashFragment_to_registerFragment,null,navOptions)
                         }
                     } else {
                         lifecycleScope.launchWhenResumed {
-                            findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                            findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment,null,navOptions)
                         }
                     }
 
-                }, 4000
+                }, 2000
             )
         } catch (e: Exception) {
             e.printStackTrace()

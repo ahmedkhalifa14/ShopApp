@@ -34,9 +34,8 @@
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_5sdp"
-                    app:civ_border_width="@dimen/_1sdp"
                     app:civ_border_color="@color/black"
-                    android:src="@drawable/profile" />
+                    android:src="@drawable/avatar" />
 
 
                 <LinearLayout

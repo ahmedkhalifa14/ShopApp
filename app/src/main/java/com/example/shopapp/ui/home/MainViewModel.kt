@@ -1,6 +1,5 @@
 package com.example.shopapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopapp.models.AuthResponse
@@ -37,6 +36,12 @@ class MainViewModel @Inject constructor(
         MutableStateFlow<Event<Resource<MyResponse<Data<Product>>>>>(Event(Resource.Init()))
     val allCategoryProductsStatus: MutableStateFlow<Event<Resource<MyResponse<Data<Product>>>>> =
         _allCategoryProductStatus
+
+
+    private val _searchProductStatus =
+        MutableStateFlow<Event<Resource<AuthResponse<Data<Product>>>>>(Event(Resource.Init()))
+    val searchProductsStatus: MutableStateFlow<Event<Resource<AuthResponse<Data<Product>>>>> =
+        _searchProductStatus
 
     private val _allProductStatus =
         MutableStateFlow<Event<Resource<AuthResponse<Data<Product>>>>>(Event(Resource.Init()))
@@ -114,27 +119,35 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getAllCartItems() {
+    fun getAllCartItems(loading: Boolean) {
         viewModelScope.launch(Dispatchers.Main) {
-            _cartStatus.emit(Event(Resource.Loading()))
+            if (loading) _cartStatus.emit(Event(Resource.Loading()))
             val result = repository.getAllCartItems()
             _cartStatus.emit((Event(result)))
         }
     }
 
-    fun getFavouriteItems() {
+    fun getFavouriteItems(loading: Boolean) {
         viewModelScope.launch(Dispatchers.Main) {
-            _favouriteStatus.emit(Event(Resource.Loading()))
+            if (loading) _favouriteStatus.emit(Event(Resource.Loading()))
             val result = repository.getFavouriteItems()
             _favouriteStatus.emit((Event(result)))
         }
     }
 
-    fun getProductsByCategoryID(id: Int) {
+    fun getProductsByCategoryID(id: Int, loading: Boolean) {
         viewModelScope.launch(Dispatchers.Main) {
-            _allCategoryProductStatus.emit(Event(Resource.Loading()))
+            if (loading) _allCategoryProductStatus.emit(Event(Resource.Loading()))
             val result = repository.getProductsByCategoryID(id)
             _allCategoryProductStatus.emit(Event(result))
+        }
+    }
+
+    fun searchForProducts(text: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _searchProductStatus.emit(Event(Resource.Loading()))
+            val result = repository.searchForProducts(text)
+            _searchProductStatus.emit(Event(result))
         }
     }
 
@@ -156,7 +169,6 @@ class MainViewModel @Inject constructor(
 
     fun addItemToCart(product_id: Int) {
         viewModelScope.launch(Dispatchers.Main) {
-            Log.d("prouduct",product_id.toString())
             _addItemToCartStatus.emit(Event(Resource.Loading()))
             val result = repository.addItemToCart(product_id)
             _addItemToCartStatus.emit(Event(result))
@@ -171,10 +183,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateCartItemQuantity(quantity: Int, id: Int) {
+    fun updateCartItemQuantity(id: Int, quantity: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             _updateCartItemQuantityStatus.emit(Event(Resource.Loading()))
-            val result = repository.updateCartItemQuantity(quantity, id)
+            val result = repository.updateCartItemQuantity(id, quantity)
             _updateCartItemQuantityStatus.emit(Event(result))
         }
     }
@@ -219,6 +231,8 @@ class MainViewModel @Inject constructor(
             _addItemToFavouritesStatus.emit(Event(result))
         }
     }
+
+
 
     fun deleteItemFromFavourites(id: Int) {
         viewModelScope.launch(Dispatchers.Main) {

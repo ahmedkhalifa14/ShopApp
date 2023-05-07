@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".NotificationsFragment">
+    tools:context=".ui.navdrawer.NotificationsFragment">
 
     <LinearLayout
         android:id="@+id/header_layout"
@@ -41,7 +41,7 @@
     </LinearLayout>
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Wave"
+        style="@style/SpinKitView.Large.MultiplePulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_20sdp"

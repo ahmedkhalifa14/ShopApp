@@ -27,7 +27,7 @@
             android:padding="@dimen/_2sdp"
             android:text="all product"
             android:textColor="@color/black"
-            android:textSize="@dimen/_18ssp" />
+            android:textSize="@dimen/_14ssp" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

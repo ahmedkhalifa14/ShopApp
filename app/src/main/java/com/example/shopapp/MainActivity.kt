@@ -23,11 +23,15 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.splashFragment, R.id.onBoardingFragment,
+                R.id.splashFragment,
+                R.id.onBoardingFragment,
                 R.id.loginFragment,
                 R.id.registerFragment,
                 R.id.categoryProductsFragment,
-                R.id.productDetailsFragment
+                R.id.productDetailsFragment,
+                R.id.cartFragment,
+                R.id.termsAndConditionsFragment,
+                R.id.searchFragment
                 ->
                     binding.bottomNavigationView.isVisible = false
 

@@ -26,13 +26,14 @@
             android:id="@+id/discount_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="50%"
             android:layout_weight="1"
+            android:text="50%"
             android:fontFamily="@font/raleway_medium"
             android:padding="@dimen/_3sdp"
             android:textColor="@color/mainColor"
             android:textSize="@dimen/_12ssp"
             />
+
         <ImageView
             android:id="@+id/favIcon"
             android:layout_width="wrap_content"
@@ -46,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100sdp"
         android:src="@drawable/logo"
+        android:scaleType="centerInside"
         />
     <TextView
         android:id="@+id/product_name_tv"
@@ -66,23 +68,10 @@
         android:textColor="@color/mainColor"
         android:textSize="@dimen/_10ssp"
         />
-
-    <TextView
-        android:id="@+id/product_old_price_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/product_price"
-        android:fontFamily="@font/raleway_semi_bold"
-        android:textColor="@color/mainColor"
-        android:textSize="@dimen/_10ssp"
-
-        />
-
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_3sdp"
+        android:layout_marginVertical="5dp"
         android:orientation="horizontal">
 
         <ImageView

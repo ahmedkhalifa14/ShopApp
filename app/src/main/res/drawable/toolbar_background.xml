@@ -9,7 +9,7 @@
         android:endColor="@color/mainColor2"
         android:centerX="45"
         android:centerY="45"
-        android:centerColor="@color/mainColor2"/>
+        android:centerColor="@color/mainColor"/>
     <corners
         android:bottomRightRadius="40dp"
         />

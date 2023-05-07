@@ -36,7 +36,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold|normal"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 />
 
             <TextView
@@ -80,6 +80,7 @@
                 android:padding="@dimen/_3sdp"
                 >
 
+
                 <Spinner
                     android:id="@+id/filter_spinner"
                     android:layout_width="0dp"
@@ -105,7 +106,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/favourite_item"
+
                 />
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/all_product_spin_kit"
+                style="@style/SpinKitView.Large.MultiplePulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/_20sdp"
+                android:visibility="gone"
+                app:SpinKit_Color="@color/mainColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

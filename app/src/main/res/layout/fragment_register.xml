@@ -18,7 +18,7 @@
         android:layout_height="wrap_content">
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/spin_kit"
-            style="@style/SpinKitView.FoldingCube"
+            style="@style/SpinKitView.Large.MultiplePulse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_20sdp"

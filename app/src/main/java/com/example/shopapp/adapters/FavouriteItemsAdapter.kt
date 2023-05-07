@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopapp.R
-import com.example.shopapp.databinding.FavouriteItemBinding
+import com.example.shopapp.databinding.FavouriteItem2Binding
 import com.example.shopapp.models.FavouriteItem
 
 class FavouriteItemsAdapter () :
@@ -28,13 +28,13 @@ class FavouriteItemsAdapter () :
     }
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    inner class FavouriteViewHolder(private val itemBinding: FavouriteItemBinding) :
+    inner class FavouriteViewHolder(private val itemBinding: FavouriteItem2Binding) :
         RecyclerView.ViewHolder(itemBinding.root) {
             fun bindData(favItem:FavouriteItem){
                 itemBinding.root.apply {
                     Glide.with(context).load(favItem.product.image).into(itemBinding.productImg)
                     itemBinding.productNameTv.text=favItem.product.name
-                    itemBinding.productPriceTv.text=favItem.product.price.toString()
+                    itemBinding.productPriceTv.text="EGP"+favItem.product.price.toString()
                     itemBinding.favIcon.setImageResource(R.drawable.fav)
                     itemBinding.favIcon.setOnClickListener {
                         onFavIconItemClickListener?.let { item ->
@@ -51,7 +51,7 @@ class FavouriteItemsAdapter () :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         val itemBinding =
-            FavouriteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            FavouriteItem2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavouriteViewHolder(itemBinding)
     }
 

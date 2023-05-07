@@ -1,4 +1,4 @@
-package com.example.shopapp
+package com.example.shopapp.ui.navdrawer
 
 import android.os.Bundle
 import android.view.LayoutInflater

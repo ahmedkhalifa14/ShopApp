@@ -13,11 +13,13 @@ import com.example.shopapp.models.Notifications
 import com.example.shopapp.models.Product
 import com.example.shopapp.models.Settings
 import com.example.shopapp.utils.Resource
+import retrofit2.http.Query
 
 interface ApiRepo {
     suspend fun getAllCategories(): Resource<MyResponse<Data<Category>>>
     suspend fun getProductsByCategoryID(id: Int): Resource<MyResponse<Data<Product>>>
-    suspend fun getAllProducts():Resource<AuthResponse<Data<Product>>>
+    suspend fun getAllProducts(): Resource<AuthResponse<Data<Product>>>
+    suspend fun searchForProducts(text: String):Resource<AuthResponse<Data<Product>>>
 
     suspend fun getBanners(): Resource<Banner>
     suspend fun getAllCartItems(): Resource<AuthResponse<CartItemData>>
@@ -27,7 +29,7 @@ interface ApiRepo {
 
     suspend fun deleteItemFromCarts(id: Int): Resource<AuthResponse<CartItemData>>
 
-    suspend fun updateCartItemQuantity(quantity: Int, id: Int): Resource<AuthResponse<CartItemData>>
+    suspend fun updateCartItemQuantity(id: Int, quantity: Int): Resource<AuthResponse<CartItemData>>
 
     //Settings
     suspend fun getSettings(): Resource<AuthResponse<Settings>>

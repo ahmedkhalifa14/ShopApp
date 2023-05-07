@@ -21,7 +21,7 @@ class CartAdapter () :
                     onItemClickListener?.let { it(cartItem) }
                 }
                 cartItemBinding.delete.setOnClickListener {
-                    onItemClickListener?.let { it(cartItem) }
+                    onItemDeleteClickListener?.let { it(cartItem) }
                 }
 
                 cartItemBinding.plus.setOnClickListener {
@@ -63,14 +63,8 @@ class CartAdapter () :
             }
 
             cartItemBinding.itemCartCounterTv.text = counter.toString()
-          //  cartItem.quantity = counter
-          //  cartItem.productTotalPrice= itemPrice * counter
-           // cartItem.productQuantity = cartItem.productQuantity
             cartItem.quantity=counter
-           // cartItemBinding.cartItemPrice.text = cartItem.productTotalPrice.toString()
-          //  Log.d("cartAdapter","productPrice "+ cartItem.productPrice.toString())
-           // Log.d("cartAdapter",  "productQuantity "+ cartItem.productQuantity.toString())
-           // Log.d("cartAdapter","itemPrice"+ itemPrice.toString())
+            cartItemBinding.cartItemTotalPrice.text = (cartItem.quantity* cartItem.product.price!!).toString()
             return cartItem
         }
     }
@@ -92,6 +86,12 @@ class CartAdapter () :
 
     fun setOnItemCounterClickListener(listener: (CartItem, Int) -> Unit) {
         onItemCounterClickListener = listener
+    }
+
+    private var onItemDeleteClickListener: ((CartItem) -> Unit)? = null
+
+    fun setOnItemDeleteClickListener(listener: (CartItem) -> Unit) {
+        onItemDeleteClickListener = listener
     }
 
 

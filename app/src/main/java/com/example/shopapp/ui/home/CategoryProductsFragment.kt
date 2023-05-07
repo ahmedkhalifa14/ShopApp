@@ -1,4 +1,4 @@
-package com.example.shopapp
+package com.example.shopapp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +9,16 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.shopapp.R
 import com.example.shopapp.adapters.ProductAdapter
 import com.example.shopapp.databinding.FragmentCategoryProductsBinding
 import com.example.shopapp.models.Product
-import com.example.shopapp.ui.home.MainViewModel
 import com.example.shopapp.utils.EventObserver
+import com.example.shopapp.utils.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -62,7 +62,11 @@ class CategoryProductsFragment : Fragment() {
         }
 
         productAdapter.setOnAddToCartItemClickListener { product ->
+
             mainViewModel.addItemToCart(product.id!!)
+        }
+        productAdapter.setOnAddToFavItemClickListener { product ->
+            mainViewModel.addItemToFavourites(product.id!!)
         }
     }
 
@@ -102,7 +106,7 @@ class CategoryProductsFragment : Fragment() {
         }
         }
          */
-          lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenStarted {
             launch {
                 mainViewModel.allCategoryProductsStatus.collect(
                     EventObserver(
@@ -124,24 +128,50 @@ class CategoryProductsFragment : Fragment() {
                 mainViewModel.addItemToCartStatus.collect(
                     EventObserver(
                         onLoading = {
-                            //binding!!.spinKit.isVisible = true
                         },
                         onSuccess = { data ->
-                            Toast.makeText(requireContext(), data.message, Toast.LENGTH_LONG).show()
-                            // Toast.makeText(requireContext(),data.status.toString(),Toast.LENGTH_LONG).show()
-                            //binding!!.spinKit.isVisible = false
-                            // productAdapter.differ.submitList(data.data?.data)
+
+                            args.category.id?.let {
+                                mainViewModel.getProductsByCategoryID(
+                                    it,
+                                    false
+                                )
+                            }
+                            Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT)
+                                .show()
                         },
                         onError = {
-                            /// binding!!.spinKit.isVisible = false
+                            snackbar(it)
                         }
                     )
                 )
 
             }
+            launch {
+                mainViewModel.addItemToFavouritesStatus.collect(
+                    EventObserver(
+                        onLoading = {
+                        },
+                        onSuccess = {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                            args.category.id?.let { it1 ->
+                                mainViewModel.getProductsByCategoryID(
+                                    it1,
+                                    false
+                                )
+                            }
+                        },
+                        onError = {
+                            snackbar(it)
+                        }
+                    )
+
+                )
+            }
 
 
         }
+
     }
 
     private fun categoryData() {
@@ -156,7 +186,7 @@ class CategoryProductsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        args.category.id?.let { mainViewModel.getProductsByCategoryID(it) }
+        args.category.id?.let { mainViewModel.getProductsByCategoryID(it, true) }
 
     }
 

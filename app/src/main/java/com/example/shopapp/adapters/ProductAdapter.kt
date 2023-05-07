@@ -1,10 +1,15 @@
 package com.example.shopapp.adapters
 
+import android.annotation.SuppressLint
 import android.graphics.PorterDuff
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +71,7 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val product = differ.currentList[position]
         when (holder.itemViewType) {
@@ -75,8 +81,32 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
                     homeViewHolder.homeBinding.productNameTv.text = product.name
                     // homeViewHolder.homeBinding..text=product.description
                     Glide.with(this).load(product.image).into(homeViewHolder.homeBinding.productImg)
-                    homeViewHolder.homeBinding.productPriceTv.text =
-                        "EGP " + product.price.toString()
+                    if (product.in_favorites == true)
+                        holder.homeBinding.favIcon.setImageResource(R.drawable.fav)
+                    if (product.discount != 0) {
+                        val spannableString = SpannableString(product.old_price.toString())
+                        spannableString.setSpan(
+                            StrikethroughSpan(),
+                            0,
+                            product.old_price.toString().length,
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        holder.homeBinding.productOldPriceTv.text = spannableString
+
+
+                    } else {
+                        holder.homeBinding.productOldPriceTv.isVisible = false
+                        holder.homeBinding.discountTv.text = ""
+                    }
+                    holder.homeBinding.productPriceTv.text = "EGP" + product.price.toString()
+                    holder.homeBinding.favIcon.setOnClickListener {
+                        if (product.in_favorites == true)
+                            holder.homeBinding.favIcon.setImageResource(R.drawable.unfav)
+                        else
+                            holder.homeBinding.favIcon.setImageResource(R.drawable.fav)
+                        onAddToFavClickListener?.let { it(product) }
+                    }
+
                     setOnClickListener {
                         onItemClickListener?.let { it(product) }
                     }
@@ -91,6 +121,19 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
                     productViewHolder.binding.itemName.text = product.name
                     productViewHolder.binding.itemDescription.text = product.description
                     productViewHolder.binding.quantityLayout.visibility = View.GONE
+                    if (product.in_favorites == true)
+                        productViewHolder.binding.fav.setImageResource(R.drawable.fav)
+
+                    productViewHolder.binding.fav.setOnClickListener {
+                        if (product.in_favorites == true)
+                            productViewHolder.binding.fav.setImageResource(R.drawable.unfav)
+                        else
+                            productViewHolder.binding.fav.setImageResource(R.drawable.fav)
+                        onAddToFavClickListener?.let { it(product) }
+                    }
+
+
+
                     if (product.in_cart == true) {
                         // productViewHolder.binding.addToCart.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondColor))
                         productViewHolder.binding.addToCart.setColorFilter(
@@ -109,10 +152,8 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
                         )
 
                     }
-
-
                     Glide.with(this).load(product.image).into(productViewHolder.binding.cartImg)
-                    productViewHolder.binding.itemPrice.text = "EGP " + product.price.toString()
+                    productViewHolder.binding.itemPrice.text = "EGP" + product.price.toString()
                     productViewHolder.binding.addToCart.setOnClickListener {
                         if (product.in_cart == false) {
                             productViewHolder.binding.addToCart.setColorFilter(
@@ -122,7 +163,7 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
                                 ), PorterDuff.Mode.SRC_IN
                             )
 
-                        } else {
+                        } else if (product.in_cart == true) {
                             productViewHolder.binding.addToCart.setColorFilter(
                                 ContextCompat.getColor(
                                     context,
@@ -154,6 +195,13 @@ class ProductAdapter(private val type: Int) : RecyclerView.Adapter<RecyclerView.
     fun setOnAddToCartItemClickListener(listener: (Product) -> Unit) {
         onAddToCartClickListener = listener
     }
+
+
+    private var onAddToFavClickListener: ((Product) -> Unit)? = null
+    fun setOnAddToFavItemClickListener(listener: (Product) -> Unit) {
+        onAddToFavClickListener = listener
+    }
+
 
     override fun getItemViewType(position: Int): Int {
         //return if (position % 2 == 0) TYPE_VIEWHOLDER_ONE else TYPE_VIEWHOLDER_TWO

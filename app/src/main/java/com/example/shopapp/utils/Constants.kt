@@ -25,6 +25,15 @@ object Constants {
         "Lighting",
         "Clothes"
     )
+    val categoryId = arrayOf(
+        1,
+        44,
+        43,
+        42,
+        40,
+        46
+    )
+
     val spinnerImages = arrayOf(
         R.drawable.logo,
         R.drawable.logo,
