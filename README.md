@@ -17,8 +17,6 @@ ShopApp
 <img src="https://user-images.githubusercontent.com/87338764/236702582-701867cd-8952-4640-bea7-f21f42f19132.png" width ="180" height="350">
 <img src="https://user-images.githubusercontent.com/87338764/236702589-0f109da7-d290-427a-9cef-db368a01a865.png" width ="180" height="350">
 <img src="https://user-images.githubusercontent.com/87338764/236703028-a00dc530-6d39-422b-b0ad-1b2fb4e70a4c.png" width ="180" height="350">
-<img src="https://user-images.githubusercontent.com/87338764/236702646-4013c5e2-ff26-4514-b57a-09c2f40a500b.png" width ="180" height="350">
-
 </div>
 
 <div>
