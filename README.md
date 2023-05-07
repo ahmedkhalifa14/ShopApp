@@ -1,5 +1,5 @@
 # GOSHOP
-ShopApp 
+ShopApp android application
 
 # ScreenShots
 
