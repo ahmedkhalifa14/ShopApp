@@ -29,4 +29,5 @@
 [Glide](https://github.com/bumptech/glide) Glide is a fast and efficient open source media management and image loading framework for Android that wraps media decoding, memory and disk caching, and resource pooling into a simple and easy to use interface. 
 
 [SpinKit](https://github.com/ybq/Android-SpinKit) Android loading animations
+
 [Timber](https://github.com/JakeWharton/timber) This is a logger with a small, extensible API which provides utility on top of Android's normal Log class.
