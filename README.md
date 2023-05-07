@@ -1,5 +1,5 @@
 # ShopApp
-#ScreenShots
+# ScreenShots
 
 <div>
 <img src="https://user-images.githubusercontent.com/87338764/236702268-89d0f607-4ca8-4189-a2ec-ae724a7e68d8.png" width ="250" height="350">
