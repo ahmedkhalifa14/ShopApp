@@ -8,9 +8,9 @@
 
 [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) Android Jetpack's Navigation component helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer. 
 
-[Retrofit] (https://square.github.io/retrofit/) A type-safe HTTP client for Android and Java
+[Retrofit](https://square.github.io/retrofit/) A type-safe HTTP client for Android and Java
 
-[Kotlin Coroutines] (https://developer.android.com/kotlin/coroutines) A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously. 
+[Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously. 
 
 [Flows](https://developer.android.com/kotlin/flow) In coroutines, a flow is a type that can emit multiple values sequentially, as opposed to suspend functions that return only a single value. For example, you can use a flow to receive live updates from a database.
 
